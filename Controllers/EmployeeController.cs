@@ -54,16 +54,16 @@ namespace TutorialMongo.Controllers
     }
 
     [HttpPost("UpdateManyEmployeesAddress")]
-    public void UpdateManyEmployees(string  employeeName, string address) {
-      var filterDefinition = Builders<EmployeeDetails>.Filter.Where(p => p.Name.Contains(employeeName));
-      var updateDefinition = Builders<EmployeeDetails>.Update.Set(p => p.Address, address);
+    public void UpdateManyEmployees(EmployeeDetails  employee) {
+      var filterDefinition = Builders<EmployeeDetails>.Filter.Where(p => p.Name.Contains(employee.Name));
+      var updateDefinition = Builders<EmployeeDetails>.Update.Set(p => p.Address, employee.Address);
       _baseMongoRepository.UpdateData("EmployeeDetails", filterDefinition, updateDefinition);
     }
 
     [HttpPost("RemoveEmployee")]
     public void RemoveEmployee(EmployeeDetails employee) {
       var filterDefinition1 = Builders<EmployeeDetails>.Filter.Eq(p => p.Name, employee.Name);
-      var filterDefinition2 = Builders<EmployeeDetails>.Filter.Eq(p => p.Address, employee.Address);
+      var filterDefinition2 = Builders<EmployeeDetails>.Filter.Eq(p => p.EmployeeID, employee.EmployeeID);
 
       _baseMongoRepository.RemoveData("EmployeeDetails", filterDefinition1 & filterDefinition2);
     }

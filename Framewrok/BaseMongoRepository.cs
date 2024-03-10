@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 using MongoDB.Driver.Core.Operations;
 using TutorialMongo.Framewrok.Contract;
 using TutorialMongo.Framewrok.Entity;
@@ -10,7 +11,10 @@ namespace TutorialMongo.Framewrok
 
     private readonly string _connectionstring;
 
-    public BaseMongoRepository() {
+    private readonly ApplicationSettings  _applicationSettings;
+
+    public BaseMongoRepository(IOptions<ApplicationSettings> options) {
+      _applicationSettings = options.Value;
     }
 
 
@@ -18,7 +22,7 @@ namespace TutorialMongo.Framewrok
     {
       get
       {
-        MongoUrl mongoUrl = new MongoUrl("mongodb://localhost:27017/tutorialMongo");
+        MongoUrl mongoUrl = new MongoUrl(_applicationSettings.MongoDBConnectionString);
         MongoClientSettings settings = MongoClientSettings.FromUrl(mongoUrl);
         double connectionTimeout = 30000;
         TimeSpan ts = TimeSpan.FromMilliseconds(connectionTimeout);

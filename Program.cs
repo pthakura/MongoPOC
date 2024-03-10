@@ -1,5 +1,6 @@
 using TutorialMongo.Framewrok;
 using TutorialMongo.Framewrok.Contract;
+using TutorialMongo.Framewrok.Entity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddTransient<IBaseMongoRepository, BaseMongoRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.Configure<ApplicationSettings>(builder.Configuration.GetSection("ApplicationSettings"));
 
 var app = builder.Build();
 

@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
 using MongoDB.Bson;
+using System.Text.Json.Serialization;
 
 namespace TutorialMongo.Framewrok.Entity
 {
@@ -10,12 +11,15 @@ namespace TutorialMongo.Framewrok.Entity
     [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
     [BsonRepresentation(BsonType.ObjectId)]
     [BsonIgnoreIfDefault]
-    public string Id { get; set; }
+    [JsonIgnore]
+    public string? Id { get; set; }
 
     [BsonElement("createdDate")]
-    public DateTime CreatedDate { get; set; }
+    [JsonIgnore]
+    public DateTime? CreatedDate { get; set; }
 
     [BsonElement("modifiedDate")]
-    public DateTime ModifiedDate { get; set; }
+    [JsonIgnore]
+    public DateTime? ModifiedDate { get; set; }
   }
 }
